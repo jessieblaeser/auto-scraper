@@ -18,38 +18,13 @@ from bs4 import BeautifulSoup
 response = requests.get('https://www.oklahoman.com/')
 soup_doc = BeautifulSoup(response.text)
 
-
-# In[6]:
-
-
 homepage = soup_doc.find(class_='gnt_cw')
-
-
-# In[10]:
-
-
-divs = homepage.find_all('div')
-
-
-# In[16]:
-
-
-#example
-divs[0].find_all('div')[0].find('a')['href'] #how to get the href for each story
-divs[0].find_all('div')[0].find('a').text #headline for story 
-
-
-# In[92]:
-
 
 #making our list to loop through using css selector
 stories = homepage.select('div a')
 
 
 # ### The loop below will pull out every headline and href on the page
-
-# In[93]:
-
 
 my_list = []
 
@@ -64,23 +39,12 @@ for story in stories:
 
 len(my_list)
 
-
-# In[94]:
-
-
 #turn list into df
 df = pd.DataFrame(my_list)
 df
 
-
-# In[95]:
-
-
 #clean
 df.headline = df.headline.str.strip()
-
-
-# In[96]:
 
 
 #cleaning dataframe
@@ -91,22 +55,11 @@ df.drop(df[df.headline.str.contains('more in', case=False, na=False) |
   (df.headline == 'Anniversaries') |
   (df.headline == 'High school reunions')].index, inplace=True)
 
-
-# In[97]:
-
-
 df = df.reset_index(drop=True)
 df
 
-
-# In[98]:
-
-
 #you can see the df is not perfect, but it's close enough! export below
 df.to_csv('oklahoman.csv', index=False)
-
-
-# In[ ]:
 
 
 
