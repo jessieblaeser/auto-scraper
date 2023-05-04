@@ -2,7 +2,7 @@ name: scrape
 on:
   workflow_dispatch:
   schedule:
-    - cron: '5 * * * *'
+    - cron: '0 */4 * * *'
 jobs:
   scrape:
     runs-on: ubuntu-latest
@@ -12,11 +12,11 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v3
         with:
-          python-version: '3.11.2'
+          python-version: '3.11'
       - name: Install all necessary packages
         run: pip install requests beautifulsoup4 pandas
       - name: Run the scraping script
-        run: python scraping-newsite.py
+        run: python scraper.py
       - name: Commit and push if content changed
         run: |-
           git config user.name "Automated"
