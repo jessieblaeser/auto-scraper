@@ -3,6 +3,7 @@ on:
   workflow_dispatch:
   schedule:
     # - cron: '0 */4 * * *'
+    - cron: '5 * * * *'
 jobs:
   scrape:
     runs-on: ubuntu-latest
